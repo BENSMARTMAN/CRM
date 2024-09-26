@@ -8,7 +8,7 @@ namespace CRM
 {
     public partial class Form1 : Form
     {
-       
+
         private List<CustomerInfo> customerList = new List<CustomerInfo>();
 
         // 初始化表單，並且可能需要從資料庫中載入客戶資料
@@ -21,18 +21,18 @@ namespace CRM
         }
 
         // 取得資料庫連線
-        private SqlConnection GetDatabaseConnection()
-        {
-            var connectionString = "Server=127.0.0.1;Database=CRM;User Id=SYSADM;Password=SYSADM";
-            var connection = new SqlConnection(connectionString);
-            connection.Open();
-            return connection;
-        }
+        //private SqlConnection GetDatabaseConnection()
+        //{
+        //    var connectionString = "Server=127.0.0.1;Database=CRM;User Id=SYSADM;Password=SYSADM";
+        //    var connection = new SqlConnection(connectionString);
+        //    connection.Open();
+        //    return connection;
+        //}
 
         // 從資料庫中載入客戶資料
         private void LoadCustomerData()
         {
-            using (var connection = GetDatabaseConnection())
+            using (var connection = DatabaseHelper.GetDatabaseConnection())
             {
                 string query = "SELECT * FROM CustomerInfo";
                 customerList = connection.Query<CustomerInfo>(query).ToList();
@@ -68,24 +68,24 @@ namespace CRM
             dataGridView1.DataSource = null;  // 清除現有資料
             dataGridView1.DataSource = list;  // 更新為新的資料來源
 
-            
+
             // 設定標題名稱為中文
             dataGridView1.Columns["Customer"].HeaderText = "客戶編號";
-          
+
             dataGridView1.Columns["CustName"].HeaderText = "客戶名稱";
             dataGridView1.Columns["IndustryRemark"].HeaderText = "產業別";
             dataGridView1.Columns["Address"].HeaderText = "地址";
             dataGridView1.Columns["WebSite"].HeaderText = "網址";
             dataGridView1.Columns["CustStatus"].HeaderText = "客戶狀態";
-            dataGridView1.Columns["CSR"].HeaderText = "客服員工";
+            dataGridView1.Columns["CSR"].HeaderText = "權責員工";
             dataGridView1.Columns["SME"].HeaderText = "SM維護工程師";
-         
+
             dataGridView1.Columns["SFE"].HeaderText = "SF維護工程師";
-           
+
             dataGridView1.Columns["GSTNo"].HeaderText = "統一編號";
             dataGridView1.Columns["NOE"].HeaderText = "員工人數";
             dataGridView1.Columns["AOC"].HeaderText = "資本額 (單位：億)";
-           
+
             dataGridView1.Columns["Remark"].HeaderText = "備註";
             dataGridView1.Columns["System"].HeaderText = "系統";
             dataGridView1.Columns["SystemRemark"].HeaderText = "系統備註";
@@ -103,6 +103,11 @@ namespace CRM
                 Form formupdate = new FormUpdate(selectedCustomer);
                 formupdate.ShowDialog();
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

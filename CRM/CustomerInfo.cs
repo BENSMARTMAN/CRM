@@ -14,7 +14,7 @@ namespace CRM
         public string Address { get; set; } = ""; // 地址
         public string WebSite { get; set; } = ""; // 網址
         public string CustStatus { get; set; } = ""; // 客戶狀態
-        public string CSR { get; set; } = ""; // 客服員工
+        public string CSR { get; set; } = ""; // 權責員工
         public string SME { get; set; } = ""; // SM 維護工程師
         public string SFE { get; set; } = ""; // SF 維護工程師
         public string GSTNo { get; set; } = ""; // 統一編號
