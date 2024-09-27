@@ -55,7 +55,7 @@ namespace CRM
                                     AOC = customer.AOC,
                                     Remark = customer.Remark,
                                     System = customer.System,
-                                    SystemRemark = customer.Remark,
+                                    SystemRemark = customer.SystemRemark,
                                     PrimaryContact = contact.PrimaryContact,
                                     Department = contact.Department,
                                     JobTitle = contact.JobTitle,
