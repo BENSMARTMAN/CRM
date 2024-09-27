@@ -78,6 +78,7 @@
             SearchBox.Name = "SearchBox";
             SearchBox.Size = new Size(238, 27);
             SearchBox.TabIndex = 4;
+           
             // 
             // Form1
             // 
@@ -91,7 +92,7 @@
             Controls.Add(dataGridView1);
             Name = "Form1";
             Text = "Form1";
-            Load += Form1_Load;
+            
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();

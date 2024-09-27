@@ -331,7 +331,6 @@
             textBoxCustStatus.Name = "textBoxCustStatus";
             textBoxCustStatus.Size = new Size(175, 38);
             textBoxCustStatus.TabIndex = 29;
-            textBoxCustStatus.TextChanged += textBox12_TextChanged;
             // 
             // textBoxSystem
             // 

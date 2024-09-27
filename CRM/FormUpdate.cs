@@ -14,8 +14,8 @@ namespace CRM
 {
     public partial class FormUpdate : Form
     {
-        private CustomerInfo _selectedCustomer;
-        public FormUpdate(CustomerInfo selectedCustomer)
+        private CombinedCustomerContact _selectedCustomer;
+        public FormUpdate(CombinedCustomerContact selectedCustomer)
         {
             InitializeComponent();
             _selectedCustomer = selectedCustomer;
@@ -39,16 +39,6 @@ namespace CRM
             richTextBoxRemark.Text = _selectedCustomer.Remark;  // 使用 RichTextBox 來顯示 Remark
             textBoxSystem.Text = _selectedCustomer.System;
             textBoxSystemRemark.Text = _selectedCustomer.SystemRemark;
-
-        }
-
-        private void FormUpdate_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox12_TextChanged(object sender, EventArgs e)
-        {
 
         }
 
@@ -81,7 +71,7 @@ namespace CRM
 
             MessageBox.Show("資料已更新");
         }
-        private void UpdateCustomerInDatabase(CustomerInfo selectedCustomer)
+        private void UpdateCustomerInDatabase(CombinedCustomerContact selectedCustomer)
         {
             using (var connection = DatabaseHelper.GetDatabaseConnection())
             {
@@ -92,6 +82,11 @@ namespace CRM
 
                 connection.Execute(query, selectedCustomer);  // 使用 Dapper 或 SqlCommand 執行更新操作
             }
+        }
+
+        private void FormUpdate_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
