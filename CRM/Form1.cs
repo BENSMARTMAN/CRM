@@ -34,7 +34,7 @@ namespace CRM
                 customerList = connection.Query<CustomerInfo>(queryCustomers).ToList();
 
                 // 讀取 CustomerContacts 資料，僅篩選 IsPrimaryContact 為 'Y'
-                string queryContacts = "SELECT Customer, PrimaryContact, Department, JobTitle, Phone, Fax, Email, ContactNote " +
+                string queryContacts = "SELECT Customer, PrimaryContact, Department, JobTitle, Phone, MobilePhone, Fax, Email, ContactNote " +
                                        "FROM CustomerContacts WHERE IsPrimaryContact = 'Y'";
                 contactsList = connection.Query<CustomerContact>(queryContacts).ToList();
                 combinedList = (from customer in customerList
