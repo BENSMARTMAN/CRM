@@ -321,7 +321,7 @@
             Controls.Add(label1);
             Controls.Add(textBoxCustomer);
             Name = "FormEditCustomerContact";
-            Text = "FormEditCustomerContact";
+            Text = "聯絡人資訊";
             ResumeLayout(false);
             PerformLayout();
         }

@@ -135,8 +135,11 @@ namespace CRM
                 var selectedCustomer = (CombinedCustomerContact)dataGridView1.Rows[e.RowIndex].DataBoundItem;
 
                 // 打開新表單並將選定的資料傳遞給新表單
-                Form formupdate = new FormUpdate(selectedCustomer);
-                formupdate.ShowDialog();
+                var formupdate = new FormUpdate(selectedCustomer);
+                if (formupdate.ShowDialog() == DialogResult.OK) 
+                {
+                    LoadCustomerData();
+                };
             }
         }
 

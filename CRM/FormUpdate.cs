@@ -14,6 +14,7 @@ namespace CRM
 {
     public partial class FormUpdate : Form
     {
+        
         private CombinedCustomerContact _selectedCustomer;
         private List<CustomerContact> _contactsList = new List<CustomerContact>();
         public FormUpdate(CombinedCustomerContact selectedCustomer)
@@ -90,10 +91,6 @@ namespace CRM
             }
         }
 
-        private void FormUpdate_Load(object sender, EventArgs e)
-        {
-
-        }
         // 從資料庫中載入聯絡人資料
         private void LoadCustomerContacts()
         {
@@ -177,11 +174,16 @@ namespace CRM
                 // 取得選中的聯絡人資料
                 var selectedContact = (CustomerContact)dataGridView1.Rows[e.RowIndex].DataBoundItem;
 
-               
+
                 // 打開新表單並將選定的資料傳遞給新表單
-                Form fromeditcustomercontact = new FormEditCustomerContact(selectedContact);
-                fromeditcustomercontact.ShowDialog();
+                var fromeditcustomercontact = new FormEditCustomerContact(selectedContact);
+                if (fromeditcustomercontact.ShowDialog() == DialogResult.OK) 
+                {
+                    // 成功新增後重新載入聯絡人資料
+                    LoadCustomerContacts();
+                } ;
             }
+            
         }
     }
 }

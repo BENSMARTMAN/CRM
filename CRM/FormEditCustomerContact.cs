@@ -13,8 +13,6 @@ namespace CRM
 {
     public partial class FormEditCustomerContact : Form
     {
-
-
         private CustomerContact _selectedContact;
 
         public FormEditCustomerContact(CustomerContact selectedContact)
@@ -93,7 +91,6 @@ namespace CRM
 
             // 更新資料庫
             UpdateContactInDatabase(_selectedContact, originalPrimaryContact);
-
             MessageBox.Show("聯絡人資料已更新");
             DialogResult = DialogResult.OK;
             Close();

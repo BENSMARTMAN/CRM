@@ -454,8 +454,8 @@
             Controls.Add(dataGridView1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FormUpdate";
-            Text = "FormUpdate";
-            Load += FormUpdate_Load;
+            Text = "公司資訊";
+           
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
