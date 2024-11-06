@@ -35,6 +35,7 @@
             SearchBox = new TextBox();
             label3 = new Label();
             buttonNew = new Button();
+            buttonDelete = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -100,11 +101,22 @@
             buttonNew.UseVisualStyleBackColor = true;
             buttonNew.Click += buttonNew_Click;
             // 
+            // buttonDelete
+            // 
+            buttonDelete.Location = new Point(470, 74);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(110, 31);
+            buttonDelete.TabIndex = 7;
+            buttonDelete.Text = "刪除客戶名單";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1466, 817);
+            Controls.Add(buttonDelete);
             Controls.Add(buttonNew);
             Controls.Add(label3);
             Controls.Add(SearchBox);
@@ -128,5 +140,6 @@
         private TextBox SearchBox;
         private Label label3;
         private Button buttonNew;
+        private Button buttonDelete;
     }
 }

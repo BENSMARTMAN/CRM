@@ -136,7 +136,7 @@ namespace CRM
 
                 // 打開新表單並將選定的資料傳遞給新表單
                 var formupdate = new FormUpdate(selectedCustomer);
-                if (formupdate.ShowDialog() == DialogResult.OK) 
+                if (formupdate.ShowDialog() == DialogResult.OK)
                 {
                     LoadCustomerData();
                 };
@@ -145,9 +145,70 @@ namespace CRM
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
-            
+            var formnewcustomer = new FormNewCustomer();
+            if (formnewcustomer.ShowDialog() == DialogResult.OK)
+            {
+                LoadCustomerData();
+            };
         }
 
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            // 確認是否有選取行
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                // 取得選定的客戶資料
+                var selectedCustomer = (CombinedCustomerContact)dataGridView1.SelectedRows[0].DataBoundItem;
 
+                // 顯示最終確認訊息框
+                var result = MessageBox.Show($"您確定要刪除客戶 {selectedCustomer.CustName} 的資料嗎？\n此操作無法還原。",
+                                             "確認刪除", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    // 執行刪除客戶
+                    DeleteCustomerFromDatabase(selectedCustomer.Customer);
+                    LoadCustomerData(); // 刪除後重新載入客戶資料
+                    MessageBox.Show("客戶已成功刪除。", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("請選擇要刪除的客戶。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            LoadCustomerData();
+        }
+        // 刪除客戶資料的輔助方法
+        private void DeleteCustomerFromDatabase(string customerId)
+        {
+            using (var connection = DatabaseHelper.GetDatabaseConnection())
+            {
+                // 刪除客戶資料
+                string deleteCustomerQuery = "DELETE FROM CustomerInfo WHERE Customer = @Customer";
+
+                // 可選：刪除客戶聯絡人資料
+                string deleteContactsQuery = "DELETE FROM CustomerContacts WHERE Customer = @Customer";
+
+                // 執行刪除
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        connection.Execute(deleteContactsQuery, new { Customer = customerId }, transaction: transaction);
+                        connection.Execute(deleteCustomerQuery, new { Customer = customerId }, transaction: transaction);
+
+                        // 提交交易
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        // 回滾交易（若出錯）
+                        transaction.Rollback();
+                        MessageBox.Show("刪除客戶時發生錯誤，請稍後再試。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
     }
 }

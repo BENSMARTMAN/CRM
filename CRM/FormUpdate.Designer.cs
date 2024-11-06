@@ -50,13 +50,9 @@
             textBoxIndustryRemark = new TextBox();
             textBoxAddress = new TextBox();
             textBoxWebSite = new TextBox();
-            textBoxCSR = new TextBox();
-            textBoxSME = new TextBox();
-            textBoxSFE = new TextBox();
             textBoxGSTNo = new TextBox();
             textBoxNOE = new TextBox();
             textBoxAOC = new TextBox();
-            textBoxCustStatus = new TextBox();
             textBoxSystem = new TextBox();
             textBoxSystemRemark = new TextBox();
             buttonUpdate = new Button();
@@ -65,6 +61,10 @@
             richTextBoxRemark = new RichTextBox();
             buttonNew = new Button();
             buttonDelete = new Button();
+            comboBoxCSR = new ComboBox();
+            comboBoxSME = new ComboBox();
+            comboBoxSFE = new ComboBox();
+            comboBoxCustStatus = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -278,30 +278,6 @@
             textBoxWebSite.Size = new Size(754, 38);
             textBoxWebSite.TabIndex = 21;
             // 
-            // textBoxCSR
-            // 
-            textBoxCSR.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
-            textBoxCSR.Location = new Point(746, 8);
-            textBoxCSR.Name = "textBoxCSR";
-            textBoxCSR.Size = new Size(129, 38);
-            textBoxCSR.TabIndex = 23;
-            // 
-            // textBoxSME
-            // 
-            textBoxSME.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
-            textBoxSME.Location = new Point(746, 52);
-            textBoxSME.Name = "textBoxSME";
-            textBoxSME.Size = new Size(129, 38);
-            textBoxSME.TabIndex = 24;
-            // 
-            // textBoxSFE
-            // 
-            textBoxSFE.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
-            textBoxSFE.Location = new Point(746, 97);
-            textBoxSFE.Name = "textBoxSFE";
-            textBoxSFE.Size = new Size(129, 38);
-            textBoxSFE.TabIndex = 25;
-            // 
             // textBoxGSTNo
             // 
             textBoxGSTNo.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
@@ -326,20 +302,12 @@
             textBoxAOC.Size = new Size(78, 38);
             textBoxAOC.TabIndex = 28;
             // 
-            // textBoxCustStatus
-            // 
-            textBoxCustStatus.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
-            textBoxCustStatus.Location = new Point(1001, 5);
-            textBoxCustStatus.Name = "textBoxCustStatus";
-            textBoxCustStatus.Size = new Size(175, 38);
-            textBoxCustStatus.TabIndex = 29;
-            // 
             // textBoxSystem
             // 
             textBoxSystem.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
             textBoxSystem.Location = new Point(1001, 50);
             textBoxSystem.Name = "textBoxSystem";
-            textBoxSystem.Size = new Size(175, 38);
+            textBoxSystem.Size = new Size(199, 38);
             textBoxSystem.TabIndex = 30;
             // 
             // textBoxSystemRemark
@@ -410,11 +378,55 @@
             buttonDelete.UseVisualStyleBackColor = true;
             buttonDelete.Click += buttonDelete_Click;
             // 
+            // comboBoxCSR
+            // 
+            comboBoxCSR.Font = new Font("微軟正黑體", 13.2000008F);
+            comboBoxCSR.FormattingEnabled = true;
+            comboBoxCSR.Items.AddRange(new object[] { "何靜惠", "李俊毅", "林錦凰" });
+            comboBoxCSR.Location = new Point(736, 10);
+            comboBoxCSR.Name = "comboBoxCSR";
+            comboBoxCSR.Size = new Size(151, 36);
+            comboBoxCSR.TabIndex = 38;
+            // 
+            // comboBoxSME
+            // 
+            comboBoxSME.Font = new Font("微軟正黑體", 13.2000008F);
+            comboBoxSME.FormattingEnabled = true;
+            comboBoxSME.Items.AddRange(new object[] { "黃志遠", "陳信宏", "林忠億", "蔡信毅", "黃羽軒", "李俊毅", "林錦凰" });
+            comboBoxSME.Location = new Point(736, 51);
+            comboBoxSME.Name = "comboBoxSME";
+            comboBoxSME.Size = new Size(151, 36);
+            comboBoxSME.TabIndex = 39;
+            // 
+            // comboBoxSFE
+            // 
+            comboBoxSFE.Font = new Font("微軟正黑體", 13.2000008F);
+            comboBoxSFE.FormattingEnabled = true;
+            comboBoxSFE.Items.AddRange(new object[] { "蔡志偉", "盧慶宇", "楊川旺" });
+            comboBoxSFE.Location = new Point(736, 92);
+            comboBoxSFE.Name = "comboBoxSFE";
+            comboBoxSFE.Size = new Size(151, 36);
+            comboBoxSFE.TabIndex = 40;
+            // 
+            // comboBoxCustStatus
+            // 
+            comboBoxCustStatus.Font = new Font("微軟正黑體", 13.2000008F);
+            comboBoxCustStatus.FormattingEnabled = true;
+            comboBoxCustStatus.Items.AddRange(new object[] { "A.系統評估中", "B.可開發", "C.持續跟進", "D.不考慮,無預算", "E.無續約", "其他" });
+            comboBoxCustStatus.Location = new Point(1001, 10);
+            comboBoxCustStatus.Name = "comboBoxCustStatus";
+            comboBoxCustStatus.Size = new Size(199, 36);
+            comboBoxCustStatus.TabIndex = 41;
+            // 
             // FormUpdate
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 640);
+            Controls.Add(comboBoxCustStatus);
+            Controls.Add(comboBoxSFE);
+            Controls.Add(comboBoxSME);
+            Controls.Add(comboBoxCSR);
             Controls.Add(buttonDelete);
             Controls.Add(buttonNew);
             Controls.Add(richTextBoxRemark);
@@ -423,13 +435,9 @@
             Controls.Add(buttonUpdate);
             Controls.Add(textBoxSystemRemark);
             Controls.Add(textBoxSystem);
-            Controls.Add(textBoxCustStatus);
             Controls.Add(textBoxAOC);
             Controls.Add(textBoxNOE);
             Controls.Add(textBoxGSTNo);
-            Controls.Add(textBoxSFE);
-            Controls.Add(textBoxSME);
-            Controls.Add(textBoxCSR);
             Controls.Add(textBoxWebSite);
             Controls.Add(textBoxAddress);
             Controls.Add(textBoxIndustryRemark);
@@ -455,7 +463,6 @@
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FormUpdate";
             Text = "公司資訊";
-           
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -485,13 +492,9 @@
         private TextBox textBoxIndustryRemark;
         private TextBox textBoxAddress;
         private TextBox textBoxWebSite;
-        private TextBox textBoxCSR;
-        private TextBox textBoxSME;
-        private TextBox textBoxSFE;
         private TextBox textBoxGSTNo;
         private TextBox textBoxNOE;
         private TextBox textBoxAOC;
-        private TextBox textBoxCustStatus;
         private TextBox textBoxSystem;
         private TextBox textBoxSystemRemark;
         private Button buttonUpdate;
@@ -500,5 +503,9 @@
         private RichTextBox richTextBoxRemark;
         private Button buttonNew;
         private Button buttonDelete;
+        private ComboBox comboBoxCSR;
+        private ComboBox comboBoxSME;
+        private ComboBox comboBoxSFE;
+        private ComboBox comboBoxCustStatus;
     }
 }
