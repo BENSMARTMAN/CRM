@@ -141,6 +141,13 @@ namespace CRM
                 // 取得選定的聯絡人
                 var selectedContact = (CustomerContact)dataGridView1.SelectedRows[0].DataBoundItem;
 
+                // 若選中的聯絡人是主要聯絡人，則提示並不執行刪除
+                if (selectedContact.IsPrimaryContact == 'Y')
+                {
+                    MessageBox.Show("請將其他聯絡人設定為主要聯絡人後再刪除", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return; // 取消刪除操作
+                }
+
                 // 顯示確認刪除的訊息框
                 var result = MessageBox.Show($"是否要刪除聯絡人 {selectedContact.PrimaryContact} 的資訊？",
                                              "確認刪除", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
