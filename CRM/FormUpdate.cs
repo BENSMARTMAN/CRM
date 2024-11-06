@@ -15,11 +15,17 @@ namespace CRM
     public partial class FormUpdate : Form
     {
         private CombinedCustomerContact _selectedCustomer;
+        private List<CustomerContact> _contactsList = new List<CustomerContact>();
         public FormUpdate(CombinedCustomerContact selectedCustomer)
         {
             InitializeComponent();
             _selectedCustomer = selectedCustomer;
             LoadCustomerDetails();
+            LoadCustomerContacts(); // 載入聯絡人資料
+
+            // 設置 DataGridView 為唯讀模式
+            dataGridView1.ReadOnly = true;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
         }
         // 載入選定的客戶詳細資訊
         private void LoadCustomerDetails()
@@ -42,12 +48,12 @@ namespace CRM
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonBack_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonUpdate_Click(object sender, EventArgs e)
         {
             // 更新 _selectedCustomer 物件中的值
             _selectedCustomer.CustName = textBoxCustName.Text;
@@ -87,6 +93,95 @@ namespace CRM
         private void FormUpdate_Load(object sender, EventArgs e)
         {
 
+        }
+        // 從資料庫中載入聯絡人資料
+        private void LoadCustomerContacts()
+        {
+            using (var connection = DatabaseHelper.GetDatabaseConnection())
+            {
+                string query = "SELECT Customer, CustName, PrimaryContact, Department, JobTitle, Phone, Fax, " +
+                               "MobilePhone, Email, ContactNote, IsPrimaryContact " +
+                               "FROM CustomerContacts WHERE Customer = @Customer";
+                _contactsList = connection.Query<CustomerContact>(query, new { Customer = _selectedCustomer.Customer }).ToList();
+            }
+
+            // 將聯絡人資料綁定到 dataGridView1
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = _contactsList;
+
+            // 設置 DataGridView 標題
+            dataGridView1.Columns["Customer"].HeaderText = "客戶編號";
+            dataGridView1.Columns["CustName"].HeaderText = "客戶名稱";
+            dataGridView1.Columns["PrimaryContact"].HeaderText = "聯絡人";
+            dataGridView1.Columns["Department"].HeaderText = "部門";
+            dataGridView1.Columns["JobTitle"].HeaderText = "職稱";
+            dataGridView1.Columns["Phone"].HeaderText = "電話";
+            dataGridView1.Columns["Fax"].HeaderText = "傳真";
+            dataGridView1.Columns["MobilePhone"].HeaderText = "行動電話";
+            dataGridView1.Columns["Email"].HeaderText = "Email";
+            dataGridView1.Columns["ContactNote"].HeaderText = "聯絡人備註";
+            dataGridView1.Columns["IsPrimaryContact"].HeaderText = "是否為主要聯絡人";
+        }
+
+        private void buttonNew_Click(object sender, EventArgs e)
+        {
+            // 直接使用 _selectedCustomer 的 Customer 和 CustName
+            string customer = _selectedCustomer.Customer;
+            string custName = _selectedCustomer.CustName;
+
+            var formNewCustomerContact = new FormNewCustomerContact(customer, custName);
+            if (formNewCustomerContact.ShowDialog() == DialogResult.OK)
+            {
+                // 成功新增後重新載入聯絡人資料
+                LoadCustomerContacts();
+            }
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                // 取得選定的聯絡人
+                var selectedContact = (CustomerContact)dataGridView1.SelectedRows[0].DataBoundItem;
+
+                // 顯示確認刪除的訊息框
+                var result = MessageBox.Show($"是否要刪除聯絡人 {selectedContact.PrimaryContact} 的資訊？",
+                                             "確認刪除", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    // 執行刪除聯絡人
+                    DeleteContactFromDatabase(selectedContact);
+                    LoadCustomerContacts(); // 刪除後重新載入聯絡人資料
+                    MessageBox.Show("聯絡人已成功刪除");
+                }
+            }
+            else
+            {
+                MessageBox.Show("請選擇要刪除的聯絡人");
+            }
+        }
+        // 從資料庫中刪除聯絡人
+        private void DeleteContactFromDatabase(CustomerContact contact)
+        {
+            using (var connection = DatabaseHelper.GetDatabaseConnection())
+            {
+                string deleteQuery = "DELETE FROM CustomerContacts WHERE Customer = @Customer AND PrimaryContact = @PrimaryContact";
+                connection.Execute(deleteQuery, new { contact.Customer, contact.PrimaryContact });
+            }
+        }
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // 確保是有效的行
+            {
+                // 取得選中的聯絡人資料
+                var selectedContact = (CustomerContact)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+
+               
+                // 打開新表單並將選定的資料傳遞給新表單
+                Form fromeditcustomercontact = new FormEditCustomerContact(selectedContact);
+                fromeditcustomercontact.ShowDialog();
+            }
         }
     }
 }

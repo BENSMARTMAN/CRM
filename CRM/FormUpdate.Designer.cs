@@ -59,10 +59,12 @@
             textBoxCustStatus = new TextBox();
             textBoxSystem = new TextBox();
             textBoxSystemRemark = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
+            buttonUpdate = new Button();
+            buttonBack = new Button();
             cartesianChart1 = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
             richTextBoxRemark = new RichTextBox();
+            buttonNew = new Button();
+            buttonDelete = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -238,7 +240,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
-            label1.Location = new Point(0, 357);
+            label1.Location = new Point(0, 348);
             label1.Name = "label1";
             label1.Size = new Size(133, 29);
             label1.TabIndex = 17;
@@ -348,27 +350,27 @@
             textBoxSystemRemark.Size = new Size(898, 38);
             textBoxSystemRemark.TabIndex = 31;
             // 
-            // button1
+            // buttonUpdate
             // 
-            button1.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
-            button1.Location = new Point(322, 302);
-            button1.Name = "button1";
-            button1.Size = new Size(120, 44);
-            button1.TabIndex = 32;
-            button1.Text = "存檔";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            buttonUpdate.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
+            buttonUpdate.Location = new Point(629, 279);
+            buttonUpdate.Name = "buttonUpdate";
+            buttonUpdate.Size = new Size(120, 44);
+            buttonUpdate.TabIndex = 32;
+            buttonUpdate.Text = "存檔";
+            buttonUpdate.UseVisualStyleBackColor = true;
+            buttonUpdate.Click += buttonUpdate_Click;
             // 
-            // button2
+            // buttonBack
             // 
-            button2.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
-            button2.Location = new Point(732, 302);
-            button2.Name = "button2";
-            button2.Size = new Size(120, 44);
-            button2.TabIndex = 33;
-            button2.Text = "返回";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            buttonBack.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
+            buttonBack.Location = new Point(755, 279);
+            buttonBack.Name = "buttonBack";
+            buttonBack.Size = new Size(120, 44);
+            buttonBack.TabIndex = 33;
+            buttonBack.Text = "返回";
+            buttonBack.UseVisualStyleBackColor = true;
+            buttonBack.Click += buttonBack_Click;
             // 
             // cartesianChart1
             // 
@@ -386,15 +388,39 @@
             richTextBoxRemark.TabIndex = 35;
             richTextBoxRemark.Text = "";
             // 
+            // buttonNew
+            // 
+            buttonNew.Font = new Font("微軟正黑體", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 136);
+            buttonNew.Location = new Point(136, 342);
+            buttonNew.Name = "buttonNew";
+            buttonNew.Size = new Size(150, 41);
+            buttonNew.TabIndex = 36;
+            buttonNew.Text = "新增聯絡人";
+            buttonNew.UseVisualStyleBackColor = true;
+            buttonNew.Click += buttonNew_Click;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Font = new Font("微軟正黑體", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 136);
+            buttonDelete.Location = new Point(302, 342);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(155, 41);
+            buttonDelete.TabIndex = 37;
+            buttonDelete.Text = "刪除聯絡人";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
+            // 
             // FormUpdate
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 640);
+            Controls.Add(buttonDelete);
+            Controls.Add(buttonNew);
             Controls.Add(richTextBoxRemark);
             Controls.Add(cartesianChart1);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(buttonBack);
+            Controls.Add(buttonUpdate);
             Controls.Add(textBoxSystemRemark);
             Controls.Add(textBoxSystem);
             Controls.Add(textBoxCustStatus);
@@ -468,9 +494,11 @@
         private TextBox textBoxCustStatus;
         private TextBox textBoxSystem;
         private TextBox textBoxSystemRemark;
-        private Button button1;
-        private Button button2;
+        private Button buttonUpdate;
+        private Button buttonBack;
         private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart cartesianChart1;
         private RichTextBox richTextBoxRemark;
+        private Button buttonNew;
+        private Button buttonDelete;
     }
 }

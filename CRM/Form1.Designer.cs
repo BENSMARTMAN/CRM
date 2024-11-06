@@ -33,6 +33,8 @@
             button1 = new Button();
             label2 = new Label();
             SearchBox = new TextBox();
+            label3 = new Label();
+            buttonNew = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -56,9 +58,9 @@
             // 
             // button1
             // 
-            button1.Location = new Point(12, 31);
+            button1.Location = new Point(353, 44);
             button1.Name = "button1";
-            button1.Size = new Size(108, 33);
+            button1.Size = new Size(111, 31);
             button1.TabIndex = 2;
             button1.Text = "條件查詢";
             button1.UseVisualStyleBackColor = true;
@@ -66,7 +68,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(18, 91);
+            label2.Location = new Point(18, 86);
             label2.Name = "label2";
             label2.Size = new Size(72, 19);
             label2.TabIndex = 3;
@@ -74,17 +76,37 @@
             // 
             // SearchBox
             // 
-            SearchBox.Location = new Point(101, 88);
+            SearchBox.Location = new Point(96, 78);
             SearchBox.Name = "SearchBox";
             SearchBox.Size = new Size(238, 27);
             SearchBox.TabIndex = 4;
-           
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(18, 56);
+            label3.Name = "label3";
+            label3.Size = new Size(214, 19);
+            label3.TabIndex = 5;
+            label3.Text = "(請輸入公司代碼或關鍵字名稱)";
+            // 
+            // buttonNew
+            // 
+            buttonNew.Location = new Point(353, 74);
+            buttonNew.Name = "buttonNew";
+            buttonNew.Size = new Size(111, 31);
+            buttonNew.TabIndex = 6;
+            buttonNew.Text = "新增客戶名單";
+            buttonNew.UseVisualStyleBackColor = true;
+            buttonNew.Click += buttonNew_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1466, 817);
+            Controls.Add(buttonNew);
+            Controls.Add(label3);
             Controls.Add(SearchBox);
             Controls.Add(label2);
             Controls.Add(button1);
@@ -92,7 +114,6 @@
             Controls.Add(dataGridView1);
             Name = "Form1";
             Text = "Form1";
-            
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -105,5 +126,7 @@
         private Button button1;
         private Label label2;
         private TextBox SearchBox;
+        private Label label3;
+        private Button buttonNew;
     }
 }

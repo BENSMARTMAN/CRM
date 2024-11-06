@@ -22,7 +22,7 @@ namespace CRM
             LoadCustomerData();
         }
 
-        
+
 
         // 從資料庫中載入客戶資料
         private void LoadCustomerData()
@@ -43,7 +43,7 @@ namespace CRM
                                 {
                                     Customer = customer.Customer,
                                     CustName = customer.CustName,
-                                    IndustryRemark = customer.IndustryRemark, 
+                                    IndustryRemark = customer.IndustryRemark,
                                     Address = customer.Address,
                                     WebSite = customer.WebSite,
                                     CustStatus = customer.CustStatus,
@@ -65,7 +65,7 @@ namespace CRM
                                     Email = contact.Email,
                                     ContactNote = contact.ContactNote
                                 }).ToList();
-                
+
 
 
             }
@@ -91,7 +91,7 @@ namespace CRM
             {
                 // 如果文字框為空白，顯示所有客戶
                 UpdateDataGridView(combinedList);
-                
+
             }
         }
 
@@ -116,7 +116,7 @@ namespace CRM
             dataGridView1.Columns["Remark"].HeaderText = "備註";
             dataGridView1.Columns["System"].HeaderText = "系統";
             dataGridView1.Columns["SystemRemark"].HeaderText = "系統備註";
-            dataGridView1.Columns["PrimaryContact"].HeaderText = "聯絡人";
+            dataGridView1.Columns["PrimaryContact"].HeaderText = "主要聯絡人";
             dataGridView1.Columns["Department"].HeaderText = "部門";
             dataGridView1.Columns["JobTitle"].HeaderText = "職稱";
             dataGridView1.Columns["Phone"].HeaderText = "電話";
@@ -125,7 +125,7 @@ namespace CRM
             dataGridView1.Columns["Email"].HeaderText = "信箱";
             dataGridView1.Columns["ContactNote"].HeaderText = "聯絡人備註";
         }
-        
+
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             // 確保點擊的是有效的資料行而非標題列
@@ -140,8 +140,11 @@ namespace CRM
             }
         }
 
-      
+        private void buttonNew_Click(object sender, EventArgs e)
+        {
+            
+        }
 
-      
+
     }
 }
