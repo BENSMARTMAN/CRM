@@ -23,14 +23,36 @@ namespace CRM
         }
 
         // 從資料庫中載入客戶資料
-        private void LoadCustomerData()
+        private void LoadCustomerData(string csr = null, string sme = null, string sfe = null, string custStatus = null)
         {
             using (var connection = DatabaseHelper.GetDatabaseConnection())
             {
 
                 // 讀取 CustomerInfo 資料
-                string queryCustomers = "SELECT * FROM CustomerInfo";
-                customerList = connection.Query<CustomerInfo>(queryCustomers).ToList();
+                string queryCustomers = "SELECT * FROM CustomerInfo WHERE 1=1";
+                // 組合篩選條件
+                if (!string.IsNullOrEmpty(csr))
+                {
+                    queryCustomers += " AND CSR = @CSR";
+                }
+                if (!string.IsNullOrEmpty(sme))
+                {
+                    queryCustomers += " AND SME = @SME";
+                }
+                if (!string.IsNullOrEmpty(sfe))
+                {
+                    queryCustomers += " AND SFE = @SFE";
+                }
+                if (!string.IsNullOrEmpty(custStatus))
+                {
+                    queryCustomers += " AND CustStatus = @CustStatus";
+                }
+                // 加入 ORDER BY 條件
+                queryCustomers += " ORDER BY Customer";
+
+                // 執行查詢並綁定參數
+                customerList = connection.Query<CustomerInfo>(queryCustomers, new { CSR = csr, SME = sme, SFE = sfe, CustStatus = custStatus }).ToList();
+
 
                 // 讀取 CustomerContacts 資料，僅篩選 IsPrimaryContact 為 'Y'
                 string queryContacts = "SELECT Customer, PrimaryContact, Department, JobTitle, Phone, MobilePhone, Fax, Email, ContactNote " +
@@ -65,7 +87,7 @@ namespace CRM
                                     ContactNote = contact.ContactNote
                                 }).ToList();
 
-
+                UpdateDataGridView(combinedList);
 
             }
         }
@@ -208,6 +230,16 @@ namespace CRM
                     }
                 }
             }
+        }
+
+        private void buttonSelect_Click(object sender, EventArgs e)
+        {
+            var formselect = new FormSelect();
+            if (formselect.ShowDialog() == DialogResult.OK)
+            {
+                // 使用篩選條件呼叫 LoadCustomerData
+                LoadCustomerData(formselect.SelectedCSR, formselect.SelectedSME, formselect.SelectedSFE, formselect.SelectedCustStatus);
+            };
         }
     }
 }

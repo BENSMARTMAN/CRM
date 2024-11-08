@@ -379,6 +379,7 @@
             buttonBack.TabIndex = 58;
             buttonBack.Text = "返回";
             buttonBack.UseVisualStyleBackColor = true;
+            buttonBack.Click += buttonBack_Click;
             // 
             // label9
             // 

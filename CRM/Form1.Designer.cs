@@ -30,7 +30,7 @@
         {
             dataGridView1 = new DataGridView();
             label1 = new Label();
-            button1 = new Button();
+            buttonSelect = new Button();
             label2 = new Label();
             SearchBox = new TextBox();
             label3 = new Label();
@@ -57,14 +57,15 @@
             label1.Size = new Size(0, 19);
             label1.TabIndex = 1;
             // 
-            // button1
+            // buttonSelect
             // 
-            button1.Location = new Point(353, 44);
-            button1.Name = "button1";
-            button1.Size = new Size(111, 31);
-            button1.TabIndex = 2;
-            button1.Text = "條件查詢";
-            button1.UseVisualStyleBackColor = true;
+            buttonSelect.Location = new Point(353, 44);
+            buttonSelect.Name = "buttonSelect";
+            buttonSelect.Size = new Size(111, 31);
+            buttonSelect.TabIndex = 2;
+            buttonSelect.Text = "條件查詢";
+            buttonSelect.UseVisualStyleBackColor = true;
+            buttonSelect.Click += buttonSelect_Click;
             // 
             // label2
             // 
@@ -121,7 +122,7 @@
             Controls.Add(label3);
             Controls.Add(SearchBox);
             Controls.Add(label2);
-            Controls.Add(button1);
+            Controls.Add(buttonSelect);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
             Name = "Form1";
@@ -135,7 +136,7 @@
 
         private DataGridView dataGridView1;
         private Label label1;
-        private Button button1;
+        private Button buttonSelect;
         private Label label2;
         private TextBox SearchBox;
         private Label label3;
