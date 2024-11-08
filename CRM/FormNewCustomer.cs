@@ -20,30 +20,27 @@ namespace CRM
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            // 取得輸入的客戶編號和客戶名稱
+            // 取得輸入的客戶編號、名稱和主要聯絡人
             string customerCode = textBoxCustomer.Text.Trim();
             string customerName = textBoxCustName.Text.Trim();
+            string primaryContact = textBoxPrimaryContact.Text.Trim();
 
-            // 檢查客戶編號和名稱是否為必填
-            if (string.IsNullOrEmpty(customerCode) || string.IsNullOrEmpty(customerName))
+            int noe = 0; // 預設值為 0
+            if (!string.IsNullOrEmpty(textBoxNOE.Text) && (!int.TryParse(textBoxNOE.Text, out noe) || noe < 0))
             {
-                MessageBox.Show("請填寫公司代碼和公司名稱。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("員工人數必須為有效的非負整數。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // 檢查 NOE（員工人數）是否為有效的數字
-            if (!int.TryParse(textBoxNOE.Text, out int noe))
+            // 檢查 AOC（資本額）是否為有效的數字，並且不得為負數
+            decimal aoc = 0m; // 預設值為 0
+            if (!string.IsNullOrEmpty(textBoxAOC.Text) && (!decimal.TryParse(textBoxAOC.Text, out aoc) || aoc < 0))
             {
-                MessageBox.Show("員工人數必須為有效的整數。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("資本額必須為有效的非負數字。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // 檢查 AOC（資本額）是否為有效的數字
-            if (!decimal.TryParse(textBoxAOC.Text, out decimal aoc))
-            {
-                MessageBox.Show("資本額必須為有效的數字。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+
 
             // 檢查客戶編號和名稱是否已存在於資料庫
             if (CustomerExists(customerCode, customerName))
@@ -53,7 +50,7 @@ namespace CRM
             }
 
             // 執行儲存邏輯
-            SaveNewCustomer(noe, aoc);
+            SaveNewCustomer(noe, aoc, primaryContact);
         }
         // 檢查客戶是否已存在的方法
         private bool CustomerExists(string customerCode, string customerName)
@@ -66,12 +63,13 @@ namespace CRM
             }
         }
         // 儲存新客戶的方法
-        private void SaveNewCustomer(int noe, decimal aoc)
+        private void SaveNewCustomer(int noe, decimal aoc, string primaryContact)
         {
             using (var connection = DatabaseHelper.GetDatabaseConnection())
             {
-                string insertQuery = @"INSERT INTO CustomerInfo (Customer, CustName, IndustryRemark, Address, WebSite, CustStatus, CSR, SME, SFE, GSTNo, NOE, AOC, Remark, System, SystemRemark)
-                               VALUES (@Customer, @CustName, @IndustryRemark, @Address, @WebSite, @CustStatus, @CSR, @SME, @SFE, @GSTNo, @NOE, @AOC, @Remark, @System, @SystemRemark)";
+                // 插入客戶資料
+                string insertCustomerQuery = @"INSERT INTO CustomerInfo (Customer, CustName, IndustryRemark, Address, WebSite, CustStatus, CSR, SME, SFE, GSTNo, NOE, AOC, Remark, System, SystemRemark)
+                                               VALUES (@Customer, @CustName, @IndustryRemark, @Address, @WebSite, @CustStatus, @CSR, @SME, @SFE, @GSTNo, @NOE, @AOC, @Remark, @System, @SystemRemark)";
 
                 var newCustomer = new CustomerInfo
                 {
@@ -92,12 +90,42 @@ namespace CRM
                     SystemRemark = textBoxSystemRemark.Text.Trim()
                 };
 
-                connection.Execute(insertQuery, newCustomer);
-                MessageBox.Show("客戶已成功新增", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // 插入主要聯絡人資料
+                string insertContactQuery = @"INSERT INTO CustomerContacts (Customer, CustName, PrimaryContact, Department, JobTitle, Phone, Fax, MobilePhone, Email, ContactNote, IsPrimaryContact)
+                                              VALUES (@Customer, @CustName, @PrimaryContact, @Department, @JobTitle, @Phone, @Fax, @MobilePhone, @Email, @ContactNote, 'Y')";
 
-                // 關閉視窗或清空表單
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                var newContact = new CustomerContact
+                {
+                    Customer = textBoxCustomer.Text.Trim(),
+                    CustName = textBoxCustName.Text.Trim(),
+                    PrimaryContact = textBoxPrimaryContact.Text.Trim(),
+                    Department = textBoxDepartment.Text.Trim(),
+                    JobTitle = textBoxJobTitle.Text.Trim(),
+                    Phone = textBoxPhone.Text.Trim(),
+                    Fax = textBoxFax.Text.Trim(),
+                    MobilePhone = textBoxMobilePhone.Text.Trim(),
+                    Email = textBoxEmail.Text.Trim(),
+                    ContactNote = richTextBoxContactNote.Text.Trim(),
+                    IsPrimaryContact = 'Y' // 設置為主要聯絡人
+                };
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        connection.Execute(insertCustomerQuery, newCustomer, transaction: transaction);
+                        connection.Execute(insertContactQuery, newContact, transaction: transaction);
+                        transaction.Commit();
+                        MessageBox.Show("客戶資料已成功新增", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("儲存過程中發生錯誤，請稍後再試。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 

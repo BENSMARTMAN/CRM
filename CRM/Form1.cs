@@ -22,13 +22,12 @@ namespace CRM
             LoadCustomerData();
         }
 
-
-
         // 從資料庫中載入客戶資料
         private void LoadCustomerData()
         {
             using (var connection = DatabaseHelper.GetDatabaseConnection())
             {
+
                 // 讀取 CustomerInfo 資料
                 string queryCustomers = "SELECT * FROM CustomerInfo";
                 customerList = connection.Query<CustomerInfo>(queryCustomers).ToList();

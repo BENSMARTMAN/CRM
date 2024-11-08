@@ -56,19 +56,33 @@ namespace CRM
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
+            int noe = 0; // 預設值為 0
+            if (!string.IsNullOrEmpty(textBoxNOE.Text) && (!int.TryParse(textBoxNOE.Text, out noe) || noe < 0))
+            {
+                MessageBox.Show("員工人數必須為有效的非負整數。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // 檢查 AOC（資本額）是否為有效的數字，並且不得為負數
+            decimal aoc = 0m; // 預設值為 0
+            if (!string.IsNullOrEmpty(textBoxAOC.Text) && (!decimal.TryParse(textBoxAOC.Text, out aoc) || aoc < 0))
+            {
+                MessageBox.Show("資本額必須為有效的非負數字。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             // 更新 _selectedCustomer 物件中的值
             _selectedCustomer.CustName = textBoxCustName.Text;
             _selectedCustomer.Customer = textBoxCustomer.Text;
             _selectedCustomer.IndustryRemark = textBoxIndustryRemark.Text;
             _selectedCustomer.Address = textBoxAddress.Text;
             _selectedCustomer.WebSite = textBoxWebSite.Text;
-            _selectedCustomer.AOC = decimal.TryParse(textBoxAOC.Text, out decimal aoc) ? aoc : 0;
+            _selectedCustomer.AOC = aoc;  // 若為空，aoc 已為 0
             _selectedCustomer.CustStatus = comboBoxCustStatus.Text;
             _selectedCustomer.CSR = comboBoxCSR.Text;
             _selectedCustomer.SME = comboBoxSME.Text;
             _selectedCustomer.SFE = comboBoxSFE.Text;
             _selectedCustomer.GSTNo = textBoxGSTNo.Text;
-            _selectedCustomer.NOE = int.TryParse(textBoxNOE.Text, out int noe) ? noe : 0;
+            _selectedCustomer.NOE = noe;  // 若為空，noe 已為 0
             _selectedCustomer.Remark = richTextBoxRemark.Text;  // 使用 RichTextBox 更新 Remark
             _selectedCustomer.System = textBoxSystem.Text;
             _selectedCustomer.SystemRemark = textBoxSystemRemark.Text;

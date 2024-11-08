@@ -60,12 +60,29 @@
             textBoxCustomer = new TextBox();
             buttonSave = new Button();
             buttonBack = new Button();
+            label9 = new Label();
+            label8 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            textBoxEmail = new TextBox();
+            textBoxFax = new TextBox();
+            textBoxPhone = new TextBox();
+            textBoxMobilePhone = new TextBox();
+            textBoxJobTitle = new TextBox();
+            textBoxDepartment = new TextBox();
+            textBoxPrimaryContact = new TextBox();
+            label12 = new Label();
+            label10 = new Label();
+            richTextBoxContactNote = new RichTextBox();
             SuspendLayout();
             // 
             // labelCustomer
             // 
             labelCustomer.AutoSize = true;
             labelCustomer.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
+            labelCustomer.ForeColor = Color.Red;
             labelCustomer.Location = new Point(12, 31);
             labelCustomer.Name = "labelCustomer";
             labelCustomer.Size = new Size(105, 29);
@@ -206,6 +223,7 @@
             // 
             labelCustName.AutoSize = true;
             labelCustName.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
+            labelCustName.ForeColor = Color.Red;
             labelCustName.Location = new Point(12, 70);
             labelCustName.Name = "labelCustName";
             labelCustName.Size = new Size(105, 29);
@@ -257,7 +275,7 @@
             richTextBoxRemark.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
             richTextBoxRemark.Location = new Point(1031, 161);
             richTextBoxRemark.Name = "richTextBoxRemark";
-            richTextBoxRemark.Size = new Size(763, 205);
+            richTextBoxRemark.Size = new Size(763, 195);
             richTextBoxRemark.TabIndex = 52;
             richTextBoxRemark.Text = "";
             // 
@@ -344,7 +362,7 @@
             // buttonSave
             // 
             buttonSave.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
-            buttonSave.Location = new Point(613, 299);
+            buttonSave.Location = new Point(623, 507);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(120, 44);
             buttonSave.TabIndex = 57;
@@ -355,18 +373,179 @@
             // buttonBack
             // 
             buttonBack.Font = new Font("微軟正黑體", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 136);
-            buttonBack.Location = new Point(757, 299);
+            buttonBack.Location = new Point(757, 507);
             buttonBack.Name = "buttonBack";
             buttonBack.Size = new Size(120, 44);
             buttonBack.TabIndex = 58;
             buttonBack.Text = "返回";
             buttonBack.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("微軟正黑體", 13.2000008F);
+            label9.Location = new Point(12, 437);
+            label9.Name = "label9";
+            label9.Size = new Size(72, 29);
+            label9.TabIndex = 64;
+            label9.Text = "Email";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("微軟正黑體", 13.2000008F);
+            label8.Location = new Point(12, 527);
+            label8.Name = "label8";
+            label8.Size = new Size(105, 29);
+            label8.TabIndex = 63;
+            label8.Text = "行動電話";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("微軟正黑體", 13.2000008F);
+            label7.Location = new Point(12, 483);
+            label7.Name = "label7";
+            label7.Size = new Size(59, 29);
+            label7.TabIndex = 62;
+            label7.Text = "傳真";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("微軟正黑體", 13.2000008F);
+            label6.Location = new Point(12, 390);
+            label6.Name = "label6";
+            label6.Size = new Size(105, 29);
+            label6.TabIndex = 61;
+            label6.Text = "連絡電話";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("微軟正黑體", 13.2000008F);
+            label4.Location = new Point(12, 339);
+            label4.Name = "label4";
+            label4.Size = new Size(115, 29);
+            label4.TabIndex = 60;
+            label4.Text = "部門/職稱";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("微軟正黑體", 13.2000008F);
+            label3.ForeColor = Color.Red;
+            label3.Location = new Point(18, 295);
+            label3.Name = "label3";
+            label3.Size = new Size(82, 29);
+            label3.TabIndex = 59;
+            label3.Text = "聯絡人";
+            // 
+            // textBoxEmail
+            // 
+            textBoxEmail.Font = new Font("微軟正黑體", 13.2000008F);
+            textBoxEmail.Location = new Point(123, 429);
+            textBoxEmail.Name = "textBoxEmail";
+            textBoxEmail.Size = new Size(369, 37);
+            textBoxEmail.TabIndex = 71;
+            // 
+            // textBoxFax
+            // 
+            textBoxFax.Font = new Font("微軟正黑體", 13.2000008F);
+            textBoxFax.Location = new Point(123, 475);
+            textBoxFax.Name = "textBoxFax";
+            textBoxFax.Size = new Size(167, 37);
+            textBoxFax.TabIndex = 70;
+            // 
+            // textBoxPhone
+            // 
+            textBoxPhone.Font = new Font("微軟正黑體", 13.2000008F);
+            textBoxPhone.Location = new Point(123, 382);
+            textBoxPhone.Name = "textBoxPhone";
+            textBoxPhone.Size = new Size(369, 37);
+            textBoxPhone.TabIndex = 69;
+            // 
+            // textBoxMobilePhone
+            // 
+            textBoxMobilePhone.Font = new Font("微軟正黑體", 13.2000008F);
+            textBoxMobilePhone.Location = new Point(123, 519);
+            textBoxMobilePhone.Name = "textBoxMobilePhone";
+            textBoxMobilePhone.Size = new Size(167, 37);
+            textBoxMobilePhone.TabIndex = 68;
+            // 
+            // textBoxJobTitle
+            // 
+            textBoxJobTitle.Font = new Font("微軟正黑體", 13.2000008F);
+            textBoxJobTitle.Location = new Point(325, 335);
+            textBoxJobTitle.Name = "textBoxJobTitle";
+            textBoxJobTitle.Size = new Size(167, 37);
+            textBoxJobTitle.TabIndex = 67;
+            // 
+            // textBoxDepartment
+            // 
+            textBoxDepartment.Font = new Font("微軟正黑體", 13.2000008F);
+            textBoxDepartment.Location = new Point(123, 335);
+            textBoxDepartment.Name = "textBoxDepartment";
+            textBoxDepartment.Size = new Size(167, 37);
+            textBoxDepartment.TabIndex = 66;
+            // 
+            // textBoxPrimaryContact
+            // 
+            textBoxPrimaryContact.Font = new Font("微軟正黑體", 13.2000008F);
+            textBoxPrimaryContact.Location = new Point(123, 287);
+            textBoxPrimaryContact.Name = "textBoxPrimaryContact";
+            textBoxPrimaryContact.Size = new Size(167, 37);
+            textBoxPrimaryContact.TabIndex = 65;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("微軟正黑體", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 136);
+            label12.Location = new Point(296, 338);
+            label12.Name = "label12";
+            label12.Size = new Size(23, 29);
+            label12.TabIndex = 72;
+            label12.Text = "/";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("微軟正黑體", 13.2000008F);
+            label10.Location = new Point(894, 362);
+            label10.Name = "label10";
+            label10.Size = new Size(128, 29);
+            label10.TabIndex = 73;
+            label10.Text = "聯絡人備註";
+            // 
+            // richTextBoxContactNote
+            // 
+            richTextBoxContactNote.Location = new Point(1031, 362);
+            richTextBoxContactNote.Name = "richTextBoxContactNote";
+            richTextBoxContactNote.Size = new Size(763, 194);
+            richTextBoxContactNote.TabIndex = 74;
+            richTextBoxContactNote.Text = "";
+            // 
             // FormNewCustomer
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1924, 391);
+            ClientSize = new Size(1924, 580);
+            Controls.Add(richTextBoxContactNote);
+            Controls.Add(label10);
+            Controls.Add(label12);
+            Controls.Add(textBoxEmail);
+            Controls.Add(textBoxFax);
+            Controls.Add(textBoxPhone);
+            Controls.Add(textBoxMobilePhone);
+            Controls.Add(textBoxJobTitle);
+            Controls.Add(textBoxDepartment);
+            Controls.Add(textBoxPrimaryContact);
+            Controls.Add(label9);
+            Controls.Add(label8);
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(label4);
+            Controls.Add(label3);
             Controls.Add(buttonBack);
             Controls.Add(buttonSave);
             Controls.Add(comboBoxCustStatus);
@@ -439,5 +618,21 @@
         private TextBox textBoxCustomer;
         private Button buttonSave;
         private Button buttonBack;
+        private Label label9;
+        private Label label8;
+        private Label label7;
+        private Label label6;
+        private Label label4;
+        private Label label3;
+        private TextBox textBoxEmail;
+        private TextBox textBoxFax;
+        private TextBox textBoxPhone;
+        private TextBox textBoxMobilePhone;
+        private TextBox textBoxJobTitle;
+        private TextBox textBoxDepartment;
+        private TextBox textBoxPrimaryContact;
+        private Label label12;
+        private Label label10;
+        private RichTextBox richTextBoxContactNote;
     }
 }

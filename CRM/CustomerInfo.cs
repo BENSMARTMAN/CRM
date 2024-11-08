@@ -18,8 +18,8 @@ namespace CRM
         public string SME { get; set; } = ""; // SM 維護工程師
         public string SFE { get; set; } = ""; // SF 維護工程師
         public string GSTNo { get; set; } = ""; // 統一編號
-        public int NOE { get; set; } // 員工人數
-        public decimal AOC { get; set; } // 資本額 (單位：億)
+        public int NOE { get; set; } // 員工人數 (可空)
+        public decimal AOC { get; set; } // 資本額 (可空)
         public string Remark { get; set; } = ""; // 備註
         public string System { get; set; } = ""; // 系統
         public string SystemRemark { get; set; } = ""; // 系統備註
