@@ -37,6 +37,7 @@
             buttonNew = new Button();
             buttonDelete = new Button();
             buttonColumnSettings = new Button();
+            buttonToExcel = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -123,11 +124,22 @@
             buttonColumnSettings.UseVisualStyleBackColor = true;
             buttonColumnSettings.Click += buttonColumnSettings_Click;
             // 
+            // buttonToExcel
+            // 
+            buttonToExcel.Location = new Point(586, 44);
+            buttonToExcel.Name = "buttonToExcel";
+            buttonToExcel.Size = new Size(109, 31);
+            buttonToExcel.TabIndex = 9;
+            buttonToExcel.Text = "資料轉出";
+            buttonToExcel.UseVisualStyleBackColor = true;
+            buttonToExcel.Click += buttonToExcel_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1466, 817);
+            Controls.Add(buttonToExcel);
             Controls.Add(buttonColumnSettings);
             Controls.Add(buttonDelete);
             Controls.Add(buttonNew);
@@ -155,5 +167,6 @@
         private Button buttonNew;
         private Button buttonDelete;
         private Button buttonColumnSettings;
+        private Button buttonToExcel;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using ClosedXML.Excel;
 using Dapper;
 using DocumentFormat.OpenXml.Spreadsheet;
 
@@ -198,7 +199,7 @@ namespace CRM
             {
                 MessageBox.Show("請選擇要刪除的客戶。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
+
         }
         // 刪除客戶資料的輔助方法
         private void DeleteCustomerFromDatabase(string customerId)
@@ -255,6 +256,54 @@ namespace CRM
             // 打開 FormColumnSettings 表單
             FormColumnSettings columnSettingsForm = new FormColumnSettings();
             columnSettingsForm.ShowDialog();
+        }
+
+        private void buttonToExcel_Click(object sender, EventArgs e)
+        {
+            // 打開 FormToExcel 表單
+            FormToExcel formtoexcel = new FormToExcel();
+            formtoexcel.ShowDialog();
+        }
+        public void ExportDataGridViewToExcel(string filePath)
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("CustomerList");
+
+                int colIndex = 1;
+
+                // 加入顯示中的標題行，並設置淺藍色背景
+                for (int i = 0; i < dataGridView1.Columns.Count; i++)
+                {
+                    if (dataGridView1.Columns[i].Visible) // 只匯出可見的欄位
+                    {
+                        var cell = worksheet.Cell(1, colIndex);
+                        cell.Value = dataGridView1.Columns[i].HeaderText;
+                        cell.Style.Fill.BackgroundColor = XLColor.LightBlue; // 設置背景色為淺藍色
+                        colIndex++;
+                    }
+                }
+
+                int rowIndex = 2;
+
+                // 加入顯示中的資料行
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    colIndex = 1;
+                    for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                    {
+                        if (dataGridView1.Columns[j].Visible) // 只匯出可見的欄位
+                        {
+                            var cellValue = dataGridView1.Rows[i].Cells[j].Value;
+                            worksheet.Cell(rowIndex, colIndex).Value = cellValue != null ? cellValue.ToString() : string.Empty;
+                            colIndex++;
+                        }
+                    }
+                    rowIndex++;
+                }
+
+                workbook.SaveAs(filePath); // 儲存至指定路徑
+            }
         }
     }
 }

@@ -158,7 +158,7 @@
             Controls.Add(labelSME);
             Controls.Add(labelCSR);
             Name = "FormSelect";
-            Text = "FormSelect";
+            Text = "條件查詢";
             ResumeLayout(false);
             PerformLayout();
         }

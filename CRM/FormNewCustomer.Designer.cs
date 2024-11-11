@@ -580,7 +580,7 @@
             Controls.Add(labelCustName);
             Controls.Add(labelCustomer);
             Name = "FormNewCustomer";
-            Text = "FormNewCustomer";
+            Text = "新增公司資訊";
             ResumeLayout(false);
             PerformLayout();
         }
