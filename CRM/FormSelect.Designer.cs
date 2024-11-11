@@ -140,6 +140,7 @@
             button2.TabIndex = 65;
             button2.Text = "返回";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // FormSelect
             // 

@@ -36,6 +36,7 @@
             label3 = new Label();
             buttonNew = new Button();
             buttonDelete = new Button();
+            buttonColumnSettings = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -112,11 +113,22 @@
             buttonDelete.UseVisualStyleBackColor = true;
             buttonDelete.Click += buttonDelete_Click;
             // 
+            // buttonColumnSettings
+            // 
+            buttonColumnSettings.Location = new Point(470, 44);
+            buttonColumnSettings.Name = "buttonColumnSettings";
+            buttonColumnSettings.Size = new Size(110, 31);
+            buttonColumnSettings.TabIndex = 8;
+            buttonColumnSettings.Text = "選擇欄位";
+            buttonColumnSettings.UseVisualStyleBackColor = true;
+            buttonColumnSettings.Click += buttonColumnSettings_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1466, 817);
+            Controls.Add(buttonColumnSettings);
             Controls.Add(buttonDelete);
             Controls.Add(buttonNew);
             Controls.Add(label3);
@@ -142,5 +154,6 @@
         private Label label3;
         private Button buttonNew;
         private Button buttonDelete;
+        private Button buttonColumnSettings;
     }
 }

@@ -192,13 +192,13 @@ namespace CRM
                     LoadCustomerData(); // 刪除後重新載入客戶資料
                     MessageBox.Show("客戶已成功刪除。", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
+                LoadCustomerData();
             }
             else
             {
                 MessageBox.Show("請選擇要刪除的客戶。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            LoadCustomerData();
+            
         }
         // 刪除客戶資料的輔助方法
         private void DeleteCustomerFromDatabase(string customerId)
@@ -240,6 +240,21 @@ namespace CRM
                 // 使用篩選條件呼叫 LoadCustomerData
                 LoadCustomerData(formselect.SelectedCSR, formselect.SelectedSME, formselect.SelectedSFE, formselect.SelectedCustStatus);
             };
+        }
+        public void UpdateDataGridViewColumns(List<string> visibleColumns)
+        {
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+                // 設定欄位是否可見
+                column.Visible = visibleColumns.Contains(column.HeaderText);
+            }
+        }
+
+        private void buttonColumnSettings_Click(object sender, EventArgs e)
+        {
+            // 打開 FormColumnSettings 表單
+            FormColumnSettings columnSettingsForm = new FormColumnSettings();
+            columnSettingsForm.ShowDialog();
         }
     }
 }
