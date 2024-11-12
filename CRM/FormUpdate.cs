@@ -73,9 +73,10 @@ namespace CRM
                 return;
             }
             // 檢查客戶編號和名稱是否已存在於資料庫
-            if (CustomerExists(customerCode, customerName))
+            // 使用原始值進行重複檢查
+            if (CustomerExists(customerCode, customerName, _selectedCustomer.Customer, _selectedCustomer.CustName))
             {
-                MessageBox.Show("公司代碼或該公司名稱已存在，請輸入其他代碼。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("公司代碼或公司名稱已存在於其他記錄，請輸入不同的代碼或名稱。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             // 更新 _selectedCustomer 物件中的值
@@ -100,12 +101,24 @@ namespace CRM
 
             MessageBox.Show("資料已更新");
         }
-        private bool CustomerExists(string customerCode, string customerName)
+        private bool CustomerExists(string customerCode, string customerName, string originalCustomerCode, string originalCustomerName)
         {
             using (var connection = DatabaseHelper.GetDatabaseConnection())
             {
-                string query = "SELECT COUNT(1) FROM CustomerInfo WHERE Customer = @Customer OR CustName = @CustName";
-                int count = connection.ExecuteScalar<int>(query, new { Customer = customerCode, CustName = customerName });
+                string query = @"
+            SELECT COUNT(*) 
+            FROM CustomerInfo 
+            WHERE (Customer = @CustomerCode AND Customer != @OriginalCustomerCode)
+               OR (CustName = @CustomerName AND CustName != @OriginalCustomerName)";
+
+                int count = connection.QuerySingle<int>(query, new
+                {
+                    CustomerCode = customerCode,
+                    CustomerName = customerName,
+                    OriginalCustomerCode = originalCustomerCode,
+                    OriginalCustomerName = originalCustomerName
+                });
+
                 return count > 0;
             }
         }
