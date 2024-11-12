@@ -53,11 +53,10 @@ namespace CRM
             // 只有當 IsPrimaryContact 有改變時才進行檢查
             if (newIsPrimaryContact != _selectedContact.IsPrimaryContact)
             {
-                // 檢查同公司是否有其他主要聯絡人
+                // 檢查同公司是否有其他主要聯絡人（排除自己）
                 if (newIsPrimaryContact == 'Y')
                 {
-                    // 檢查是否存在其他主要聯絡人
-                    if (IsOtherPrimaryContactExists(_selectedContact.Customer))
+                    if (IsOtherPrimaryContactExists(_selectedContact.Customer, originalPrimaryContact))
                     {
                         var result = MessageBox.Show("同公司已有其他主要聯絡人，是否替換？", "確認", MessageBoxButtons.YesNo);
                         if (result == DialogResult.Yes)
@@ -71,7 +70,7 @@ namespace CRM
                         }
                     }
                 }
-                else if (newIsPrimaryContact == 'N' && !IsOtherPrimaryContactExists(_selectedContact.Customer))
+                else if (newIsPrimaryContact == 'N' && !IsOtherPrimaryContactExists(_selectedContact.Customer, originalPrimaryContact))
                 {
                     MessageBox.Show("已無主要負責人，請先將其他負責人設為主要負責人，才可以存檔。");
                     return; // 如果沒有其他主要聯絡人，則返回
@@ -95,15 +94,28 @@ namespace CRM
             DialogResult = DialogResult.OK;
             Close();
         }
-        private bool IsOtherPrimaryContactExists(string customer)
+        private bool IsOtherPrimaryContactExists(string customer, string currentPrimaryContact)
         {
             using (var connection = DatabaseHelper.GetDatabaseConnection())
             {
-                string query = "SELECT COUNT(*) FROM CustomerContacts WHERE Customer = @Customer AND IsPrimaryContact = 'Y'";
-                int count = connection.QuerySingle<int>(query, new { Customer = customer });
+                string query = @"
+            SELECT COUNT(*) 
+            FROM CustomerContacts 
+            WHERE Customer = @Customer AND IsPrimaryContact = 'Y' AND PrimaryContact != @CurrentPrimaryContact";
+                int count = connection.QuerySingle<int>(query, new { Customer = customer, CurrentPrimaryContact = currentPrimaryContact });
                 return count > 0; // 如果有其他主要聯絡人則返回 true
             }
         }
+        //private bool IsOtherPrimaryContactExists(string customer)
+        //{
+        //    using (var connection = DatabaseHelper.GetDatabaseConnection())
+        //    {
+        //        string query = "SELECT COUNT(*) FROM CustomerContacts WHERE Customer = @Customer AND IsPrimaryContact = 'Y'";
+        //        int count = connection.QuerySingle<int>(query, new { Customer = customer });
+        //        MessageBox.Show($"找到的其他主要聯絡人數量: {count}"); // 調試用
+        //        return count > 0; // 如果有其他主要聯絡人則返回 true
+        //    }
+        //}
 
         // 設置同公司的其他主要聯絡人為 'N'
         private void SetPreviousPrimaryContactToNo(string customer)

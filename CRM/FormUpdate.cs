@@ -56,6 +56,8 @@ namespace CRM
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
+            string customerCode = textBoxCustomer.Text.Trim();
+            string customerName = textBoxCustName.Text.Trim();
             int noe = 0; // 預設值為 0
             if (!string.IsNullOrEmpty(textBoxNOE.Text) && (!int.TryParse(textBoxNOE.Text, out noe) || noe < 0))
             {
@@ -68,6 +70,12 @@ namespace CRM
             if (!string.IsNullOrEmpty(textBoxAOC.Text) && (!decimal.TryParse(textBoxAOC.Text, out aoc) || aoc < 0))
             {
                 MessageBox.Show("資本額必須為有效的非負數字。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            // 檢查客戶編號和名稱是否已存在於資料庫
+            if (CustomerExists(customerCode, customerName))
+            {
+                MessageBox.Show("公司代碼或該公司名稱已存在，請輸入其他代碼。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             // 更新 _selectedCustomer 物件中的值
@@ -91,6 +99,15 @@ namespace CRM
             UpdateCustomerInDatabase(_selectedCustomer);
 
             MessageBox.Show("資料已更新");
+        }
+        private bool CustomerExists(string customerCode, string customerName)
+        {
+            using (var connection = DatabaseHelper.GetDatabaseConnection())
+            {
+                string query = "SELECT COUNT(1) FROM CustomerInfo WHERE Customer = @Customer OR CustName = @CustName";
+                int count = connection.ExecuteScalar<int>(query, new { Customer = customerCode, CustName = customerName });
+                return count > 0;
+            }
         }
         private void UpdateCustomerInDatabase(CombinedCustomerContact selectedCustomer)
         {

@@ -24,14 +24,28 @@ namespace CRM
             string customerCode = textBoxCustomer.Text.Trim();
             string customerName = textBoxCustName.Text.Trim();
             string primaryContact = textBoxPrimaryContact.Text.Trim();
-
+            // 檢查是否有未填寫的必填欄位
+            if (string.IsNullOrEmpty(customerCode))
+            {
+                MessageBox.Show("公司代碼為必填項目。", "提醒", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrEmpty(customerName))
+            {
+                MessageBox.Show("公司名稱為必填項目。", "提醒", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrEmpty(primaryContact))
+            {
+                MessageBox.Show("主要聯絡人為必填項目。", "提醒", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             int noe = 0; // 預設值為 0
             if (!string.IsNullOrEmpty(textBoxNOE.Text) && (!int.TryParse(textBoxNOE.Text, out noe) || noe < 0))
             {
                 MessageBox.Show("員工人數必須為有效的非負整數。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             // 檢查 AOC（資本額）是否為有效的數字，並且不得為負數
             decimal aoc = 0m; // 預設值為 0
             if (!string.IsNullOrEmpty(textBoxAOC.Text) && (!decimal.TryParse(textBoxAOC.Text, out aoc) || aoc < 0))
@@ -39,16 +53,12 @@ namespace CRM
                 MessageBox.Show("資本額必須為有效的非負數字。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-
-
             // 檢查客戶編號和名稱是否已存在於資料庫
             if (CustomerExists(customerCode, customerName))
             {
                 MessageBox.Show("公司代碼或該公司名稱已存在，請輸入其他代碼。", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             // 執行儲存邏輯
             SaveNewCustomer(noe, aoc, primaryContact);
         }
